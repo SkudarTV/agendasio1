@@ -12,8 +12,11 @@ enum Role:int
     {
         return match ($value){
             1 =>'Administrateur',
+            '1' =>'Administrateur',
             10 => 'Enseignant',
+            '10' => 'Enseignant',
             100 => 'Étudiant',
+            '100' => 'Étudiant',
         };
     }
 }
