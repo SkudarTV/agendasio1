@@ -66,7 +66,8 @@ class TaskResource extends Resource
                 Tables\Columns\IconColumn::make('return')
                     ->alignCenter()
                     ->boolean(),
-                Tables\Columns\TextColumn::make('user.name'),
+                Tables\Columns\TextColumn::make('user.name')
+                    ->label('Author'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
