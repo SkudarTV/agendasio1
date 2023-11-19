@@ -46,7 +46,8 @@ class TaskPolicy
      */
     public function delete(User $user, Task $task): bool
     {
-        return $user->role == Role::ADMIN->value;
+        return $user->role == Role::ADMIN->value
+            || ($user->id == $task->user_id && $task->created_at);
     }
 
     /**

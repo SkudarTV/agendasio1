@@ -9,6 +9,7 @@ class Subject extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['name'];
     public function tasks()
     {
         return $this->belongsTo(Subject::class);
