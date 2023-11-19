@@ -91,11 +91,7 @@ class TaskResource extends Resource
                 Tables\Actions\DeleteAction::make()
                     ->label(''),
             ])
-            ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
-            ]);
+            ->bulkActions([]);
     }
 
     public static function getRelations(): array
