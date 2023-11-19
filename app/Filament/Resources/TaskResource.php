@@ -18,7 +18,7 @@ class TaskResource extends Resource
     protected static ?string $model = Task::class;
 
     protected static ?string $label = 'Tâche';
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-list-bullet';
 
     public static function form(Form $form): Form
     {
@@ -36,9 +36,11 @@ class TaskResource extends Resource
                     ->columns(3)
                     ->schema([
                         Forms\Components\Select::make('group_id')
+                            ->required()
                             ->relationship('group','name'),
 
                         Forms\Components\Select::make('subject_id')
+                            ->required()
                             ->relationship('subject','name'),
                         Forms\Components\Toggle::make('return'),
 
@@ -82,8 +84,12 @@ class TaskResource extends Resource
                     ->relationship('subject','name'),
             ])
             ->actions([
-                Tables\Actions\ViewAction::make(),
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\ViewAction::make()
+                    ->label(''),
+                Tables\Actions\EditAction::make()
+                    ->label(''),
+                Tables\Actions\DeleteAction::make()
+                    ->label(''),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
