@@ -28,4 +28,9 @@ class Task extends Model
     {
         return $this->belongsTo(Subject::class);
     }
+
+    public function author()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
