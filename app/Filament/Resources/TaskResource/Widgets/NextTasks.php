@@ -14,7 +14,7 @@ class NextTasks extends BaseWidget
 
     protected static ?string $heading='Prochaines tâches';
 
-
+    protected int | string | array $columnSpan = 5;
     public function table(Table $table): Table
     {
         return $table
