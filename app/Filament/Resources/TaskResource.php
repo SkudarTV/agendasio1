@@ -37,7 +37,7 @@ class TaskResource extends Resource
                     ->schema([
                         Forms\Components\Select::make('group_id')
                             ->required()
-                            ->relationship('group','name'),
+                            ->relationship('group','name',fn(Builder $query) => $query->whereIn('groups.id',auth()->user()->groups()->pluck('groups.id'))),
 
                         Forms\Components\Select::make('subject_id')
                             ->required()

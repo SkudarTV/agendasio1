@@ -39,8 +39,8 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
             ->widgets([
-                NextTasks::class,
                 AddTask::class,
+                NextTasks::class,
             ])
             ->middleware([
                 EncryptCookies::class,

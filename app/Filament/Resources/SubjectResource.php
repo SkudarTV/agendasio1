@@ -18,7 +18,7 @@ class SubjectResource extends Resource
     protected static ?string $model = Subject::class;
 
     protected static ?string $label='Matière';
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-book-open';
 
     public static function form(Form $form): Form
     {
