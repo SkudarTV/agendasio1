@@ -25,6 +25,8 @@ class AppServiceProvider extends ServiceProvider
     {
         Column::configureUsing(fn(Column $item)=>$item->translateLabel());
         Component::configureUsing(fn(Component $item)=>$item->translateLabel());
+        \Filament\Infolists\Components\Component::configureUsing(fn(\Filament\Infolists\Components\Component $item)=>$item->translateLabel());
         Table::$defaultDateDisplayFormat = 'd/m/Y';
+
     }
 }

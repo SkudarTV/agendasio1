@@ -7,6 +7,9 @@ use App\Filament\Resources\TaskResource\RelationManagers;
 use App\Models\Task;
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Infolists\Components\IconEntry;
+use Filament\Infolists\Components\TextEntry;
+use Filament\Infolists\Infolist;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -67,7 +70,8 @@ class TaskResource extends Resource
                     ->alignCenter()
                     ->boolean(),
                 Tables\Columns\TextColumn::make('user.name')
-                    ->label('Author'),
+                    ->label('Author')
+                    ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
@@ -108,8 +112,24 @@ class TaskResource extends Resource
         return [
             'index' => Pages\ListTasks::route('/'),
             'create' => Pages\CreateTask::route('/create'),
-            'view' => Pages\ViewTask::route('/{record}'),
-            'edit' => Pages\EditTask::route('/{record}/edit'),
+//            'view' => Pages\ViewTask::route('/{record}'),
+//            'edit' => Pages\EditTask::route('/{record}/edit'),
         ];
+    }
+
+    public static function infolist(Infolist $infolist): Infolist
+    {
+        return $infolist->schema([
+            TextEntry::make('dueDate')
+                ->date('d/m/Y'),
+            TextEntry::make('title'),
+            TextEntry::make('subject.name'),
+            TextEntry::make('group.name'),
+            TextEntry::make('description'),
+            IconEntry::make('return')
+                ->boolean(),
+            TextEntry::make('user.name')
+                ->label('Author')
+        ]);
     }
 }

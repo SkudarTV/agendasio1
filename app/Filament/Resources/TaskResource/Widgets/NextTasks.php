@@ -32,10 +32,10 @@ class NextTasks extends BaseWidget
                     ->date()
                     ->collapsible()
             )
-            ->actions([])
-            ->filters([])
-            ->recordUrl(
-                fn (Task $record): string => TaskResource::getUrl('view',['record'=>$record])
-            );           ;
+            ->actions([
+                Tables\Actions\ViewAction::make()
+                ->label(''),
+            ])
+            ->filters([]);
     }
 }
