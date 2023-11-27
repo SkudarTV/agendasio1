@@ -22,7 +22,7 @@ class TaskPolicy
      */
     public function view(User $user, Task $task): bool
     {
-        return $user->role == Role::ADMIN->value;
+        return $user->role == Role::ADMIN->value || $user->groups->pluck('id')->contains($task->group_id) ;
     }
 
     /**
