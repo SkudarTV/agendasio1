@@ -19,7 +19,7 @@ class ListTasks extends ListRecords
         ];
     }
 
-    public function getTabs()
+    public function getTabs():array
     {
         return [
             'Prochaines'=>Tab::make('Prochaines')
