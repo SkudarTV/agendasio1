@@ -53,6 +53,7 @@ class TaskResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->query(auth()->user()->tasks())
             ->columns([
                 Tables\Columns\TextColumn::make('dueDate')
                     ->date()
