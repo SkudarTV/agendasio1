@@ -3,18 +3,17 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\TaskResource\Pages;
-use App\Filament\Resources\TaskResource\RelationManagers;
 use App\Models\Task;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Infolists\Components\IconEntry;
 use Filament\Infolists\Components\TextEntry;
 use Filament\Infolists\Infolist;
+use Filament\Notifications\Notification;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class TaskResource extends Resource
 {
@@ -69,6 +68,17 @@ class TaskResource extends Resource
                 Tables\Columns\IconColumn::make('return')
                     ->alignCenter()
                     ->boolean(),
+                Tables\Columns\IconColumn::make('isDone')
+                    ->label('Task is done')
+                    ->boolean()
+                    ->action(function(Task $record):void{
+                        $record->toggleIsDone();
+
+                        Notification::make()
+                            ->title(__('Saved successfully'))
+                            ->success()
+                            ->send();
+                    }),
                 Tables\Columns\TextColumn::make('user.name')
                     ->label('Author')
                     ->toggleable(isToggledHiddenByDefault: true),
@@ -102,9 +112,7 @@ class TaskResource extends Resource
 
     public static function getRelations(): array
     {
-        return [
-            //
-        ];
+        return [];
     }
 
     public static function getPages(): array
@@ -113,7 +121,7 @@ class TaskResource extends Resource
             'index' => Pages\ListTasks::route('/'),
             'create' => Pages\CreateTask::route('/create'),
 //            'view' => Pages\ViewTask::route('/{record}'),
-//            'edit' => Pages\EditTask::route('/{record}/edit'),
+            'edit' => Pages\EditTask::route('/{record}/edit'),
         ];
     }
 
@@ -127,6 +135,9 @@ class TaskResource extends Resource
             TextEntry::make('group.name'),
             TextEntry::make('description'),
             IconEntry::make('return')
+                ->boolean(),
+            IconEntry::make('isDone')
+                ->label('Task is done')
                 ->boolean(),
             TextEntry::make('user.name')
                 ->label('Author')

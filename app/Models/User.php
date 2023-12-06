@@ -58,7 +58,7 @@ class User extends Authenticatable implements FilamentUser
 
     public function tasksDone()
     {
-        return $this->belongsToMany(Task::class, 'task_user')->withPivot('taskDone');
+        return $this->belongsToMany(Task::class, 'task_user');
     }
 
     public function nextTasks()

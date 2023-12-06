@@ -2,11 +2,14 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use League\CommonMark\Extension\Attributes\Node\Attributes;
 
 class Task extends Model
 {
@@ -37,8 +40,25 @@ class Task extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function tasksDone()
+    public function isDone():Attribute
     {
-        return $this->belongsToMany(User::class, 'task_user')->withPivot('taskDone');
+        return  Attribute::make(
+            get : fn() => auth()->user()->tasksDone()->where('task_id',$this->id)->count()>0,
+        );
     }
+
+    public function toggleIsDone()
+    {
+        if($this->isDone){
+            DB::table('task_user')
+                ->where('user_id',\auth()->user()->id)
+                ->where('task_id',$this->id)
+                ->delete();
+        }else{
+            DB::table('task_user')
+                ->insert(['task_id'=>$this->id,'user_id'=>auth()->user()->id]);
+        }
+    }
+
+
 }
