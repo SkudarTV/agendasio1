@@ -53,7 +53,10 @@ class User extends Authenticatable implements FilamentUser
 
     public function tasks()
     {
-        return $this->hasMany(Task::class);
+        return Task::whereIn('group_id',$this->groups()
+            ->where('role',Role::STUDENT)
+            ->pluck('groups.id'))
+            ->orderBy('dueDate');
     }
 
     public function tasksDone()
